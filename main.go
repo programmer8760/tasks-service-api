@@ -18,6 +18,12 @@ func main() {
 	}
 	log.Println("DB connected: ", database != nil)
 
+	database.AutoMigrate(
+		&types.User{},
+		&types.Task{},
+		&types.Event{},
+	)
+
 	app := fiber.New()
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("200")
