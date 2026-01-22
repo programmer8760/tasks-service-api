@@ -3,9 +3,9 @@ package models
 import "time"
 
 type User struct {
-	id       uint   `gorm:"primaryKey"`
-	login    string `gorm:"unique"`
-	password string
+	ID       uint   `gorm:"primaryKey"`
+	Login    string `gorm:"unique"`
+	Password string
 }
 
 type Status string
@@ -17,19 +17,19 @@ const (
 )
 
 type Task struct {
-	id          uint `gorm:"primaryKey"`
-	title       string
-	description string
-	status      Status `gorm:"type:varchar(11);not null"`
-	created_at  time.Time
-	updated_at  time.Time
-	user_id     uint
+	Id          uint `gorm:"primaryKey"`
+	Title       string
+	Description string
+	Status      Status `gorm:"type:varchar(11);not null"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	UserID      uint
 }
 
 type Event struct {
-	id      uint `gorm:"primaryKey"`
-	title   string
-	start   time.Time
-	end     time.Time
-	task_id uint
+	ID     uint `gorm:"primaryKey"`
+	Title  string
+	Start  time.Time
+	End    time.Time
+	TaskID uint
 }
