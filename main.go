@@ -32,6 +32,7 @@ func main() {
 	})
 
 	app.Post("/auth/register", auth.Register(database))
+	app.Post("/auth/login", auth.Login(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
