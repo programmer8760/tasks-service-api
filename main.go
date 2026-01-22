@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/programmer8760/tasks-service-api/db"
 	"github.com/programmer8760/tasks-service-api/handlers/auth"
+	"github.com/programmer8760/tasks-service-api/handlers/tasks"
 	"github.com/programmer8760/tasks-service-api/models"
 )
 
@@ -33,6 +34,8 @@ func main() {
 
 	app.Post("/auth/register", auth.Register(database))
 	app.Post("/auth/login", auth.Login(database))
+
+	app.Post("/user/tasks/create", tasks.CreateTask(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
