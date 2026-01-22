@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"github.com/programmer8760/tasks-service-api/db"
+	"github.com/programmer8760/tasks-service-api/handlers/auth"
 	"github.com/programmer8760/tasks-service-api/models"
 )
 
@@ -29,6 +30,8 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("200")
 	})
+
+	app.Post("/auth/register", auth.Register(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
