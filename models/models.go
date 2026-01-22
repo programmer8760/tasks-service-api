@@ -1,4 +1,4 @@
-package types
+package models
 
 import "time"
 
@@ -21,8 +21,8 @@ type Task struct {
 	title       string
 	description string
 	status      Status `gorm:"type:varchar(11);not null"`
-	created     time.Time
-	updated     time.Time
+	created_at  time.Time
+	updated_at  time.Time
 	user_id     uint
 }
 
