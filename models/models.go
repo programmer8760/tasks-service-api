@@ -11,9 +11,9 @@ type User struct {
 type Status string
 
 const (
-	New        Status = "new"
-	InProgress Status = "in progress"
-	Done       Status = "done"
+	TaskNew        Status = "new"
+	TaskInProgress Status = "in progress"
+	TaskDone       Status = "done"
 )
 
 type Task struct {
