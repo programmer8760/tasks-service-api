@@ -16,11 +16,19 @@ const (
 	TaskDone       Status = "done"
 )
 
+func (s Status) IsValid() bool {
+	switch s {
+	case TaskNew, TaskInProgress, TaskDone:
+		return true
+	}
+	return false
+}
+
 type Task struct {
 	ID          uint `gorm:"primaryKey"`
 	Title       string
 	Description string
-	Status      Status `gorm:"type:varchar(11);not null"`
+	Status      Status
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	UserID      uint
