@@ -32,11 +32,11 @@ func main() {
 		return c.SendString("200")
 	})
 
-	app.Post("/auth/register", auth.Register(database))
-	app.Post("/auth/login", auth.Login(database))
+	app.Post("/register", auth.Register(database))
+	app.Post("/login", auth.Login(database))
 
-	app.Post("/user/tasks/create", tasks.CreateTask(database))
-	app.Get("/user/tasks", tasks.GetAllTasks(database))
+	app.Post("/tasks/create", tasks.CreateTask(database))
+	app.Get("/tasks", tasks.GetAllTasks(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
