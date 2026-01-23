@@ -17,7 +17,7 @@ const (
 )
 
 type Task struct {
-	Id          uint `gorm:"primaryKey"`
+	ID          uint `gorm:"primaryKey"`
 	Title       string
 	Description string
 	Status      Status `gorm:"type:varchar(11);not null"`
