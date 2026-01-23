@@ -36,6 +36,7 @@ func main() {
 	app.Post("/auth/login", auth.Login(database))
 
 	app.Post("/user/tasks/create", tasks.CreateTask(database))
+	app.Get("/user/tasks", tasks.GetAllTasks(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
