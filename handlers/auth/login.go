@@ -28,7 +28,7 @@ func Login(db *gorm.DB) fiber.Handler {
 		var user models.User
 		result := db.
 			Where("login = ?", request.Login).
-			First(&user)
+			Find(&user)
 
 		if result.Error != nil {
 			log.Println("error getting data from db: ", result.Error)
