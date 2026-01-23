@@ -12,7 +12,7 @@ type Status string
 
 const (
 	TaskNew        Status = "new"
-	TaskInProgress Status = "in progress"
+	TaskInProgress Status = "in_progress"
 	TaskDone       Status = "done"
 )
 
