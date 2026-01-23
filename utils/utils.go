@@ -42,3 +42,12 @@ func CheckJWT(tokenString string) (map[string]any, error) {
 		return nil, errors.New("invalid claims type")
 	}
 }
+
+func GetUserIDFromJWTClaims(tokenClaims map[string]any) (uint, error) {
+	user_id, ok := tokenClaims["user_id"]
+	if ok {
+		return uint(user_id.(float64)), nil
+	} else {
+		return 0, errors.New("token doesn't contain user id")
+	}
+}

@@ -28,6 +28,10 @@ func CreateTask(db *gorm.DB) fiber.Handler {
 		if err != nil {
 			return fiber.ErrUnauthorized
 		}
+		userID, err := utils.GetUserIDFromJWTClaims(tokenClaims)
+		if err != nil {
+			return fiber.ErrUnauthorized
+		}
 
 		task := models.Task{
 			Title:       request.Title,
@@ -35,7 +39,7 @@ func CreateTask(db *gorm.DB) fiber.Handler {
 			Status:      models.TaskNew,
 			CreatedAt:   time.Now(),
 			UpdatedAt:   time.Now(),
-			UserID:      uint(tokenClaims["user_id"].(float64)),
+			UserID:      userID,
 		}
 
 		db.Create(&task)

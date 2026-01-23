@@ -24,12 +24,16 @@ func GetAllTasks(db *gorm.DB) fiber.Handler {
 		if err != nil {
 			return fiber.ErrUnauthorized
 		}
+		userID, err := utils.GetUserIDFromJWTClaims(tokenClaims)
+		if err != nil {
+			return fiber.ErrUnauthorized
+		}
 
 		var tasks []models.Task
 
 		db.Find(
 			&tasks,
-			models.Task{UserID: uint(tokenClaims["user_id"].(float64))},
+			models.Task{UserID: userID},
 		)
 
 		return c.JSON(fiber.Map{
