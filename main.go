@@ -38,6 +38,7 @@ func main() {
 	app.Post("/tasks/create", tasks.CreateTask(database))
 	app.Get("/tasks", tasks.GetAllTasks(database))
 	app.Get("/tasks/:taskID", tasks.GetOneTask(database))
+	app.Put("/tasks/:taskID/update", tasks.UpdateTask(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
