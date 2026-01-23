@@ -11,8 +11,8 @@ import (
 
 type CreateTaskRequest struct {
 	Token       string `json:"token"`
-	Title       string `json:"task_title"`
-	Description string `json:"task_description"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 }
 
 func CreateTask(db *gorm.DB) fiber.Handler {
@@ -42,6 +42,7 @@ func CreateTask(db *gorm.DB) fiber.Handler {
 
 		return c.JSON(fiber.Map{
 			"status": 200,
+			"task":   task,
 		})
 	}
 }
