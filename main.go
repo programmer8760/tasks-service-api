@@ -39,6 +39,7 @@ func main() {
 	app.Get("/tasks", tasks.GetAllTasks(database))
 	app.Get("/tasks/:taskID", tasks.GetOneTask(database))
 	app.Put("/tasks/:taskID/update", tasks.UpdateTask(database))
+	app.Delete("/tasks/:taskID/delete", tasks.DeleteTask(database))
 
 	log.Fatal(app.Listen(":3000"))
 }
