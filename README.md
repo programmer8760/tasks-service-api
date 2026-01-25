@@ -18,4 +18,5 @@ docker compose up
 - more logging
 - better requests/responses
 - adequate architecture
+
 *i'll never do any of this lol*
