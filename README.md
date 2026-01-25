@@ -1,6 +1,6 @@
 # Simple API for tasks service
 
-Functionality:
+**Functionality:**
 - users registration
 - JWT authetication
 - creating/updating/deleting tasks
@@ -12,9 +12,10 @@ You can start this API running:
 docker compose up
 ```
 
-TODO:
+**TODO:**
 - events
 - sorting/filtering
 - more logging
 - better requests/responses
 - adequate architecture
+*i'll never do any of this lol*
