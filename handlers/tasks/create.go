@@ -46,7 +46,9 @@ func CreateTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 
 		db.Create(&task)
 
-		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		go func(userID uint) {
+			rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		}(userID)
 
 		return c.JSON(fiber.Map{
 			"status": 200,

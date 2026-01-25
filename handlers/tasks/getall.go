@@ -55,13 +55,15 @@ func GetAllTasks(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 				models.Task{UserID: userID},
 			)
 
-			tasksJSON, _ := json.Marshal(tasks)
-			rdb.Set(
-				ctx,
-				fmt.Sprintf("tasks:user:%s", userID),
-				tasksJSON,
-				time.Minute*1,
-			)
+			go func(tasks []models.Task, userID uint) {
+				tasksJSON, _ := json.Marshal(tasks)
+				rdb.Set(
+					ctx,
+					fmt.Sprintf("tasks:user:%s", userID),
+					tasksJSON,
+					time.Minute*1,
+				)
+			}(tasks, userID)
 		}
 
 		return c.JSON(fiber.Map{

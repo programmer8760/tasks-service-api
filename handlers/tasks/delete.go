@@ -48,7 +48,9 @@ func DeleteTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 			return fiber.ErrNotFound
 		}
 
-		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		go func(userID uint) {
+			rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		}(userID)
 
 		return c.JSON(fiber.Map{
 			"status": 200,

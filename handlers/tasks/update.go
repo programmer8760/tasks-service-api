@@ -73,7 +73,9 @@ func UpdateTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 
 		db.Save(&task)
 
-		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		go func(userID uint) {
+			rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
+		}(userID)
 
 		return c.JSON(fiber.Map{
 			"status": 200,
