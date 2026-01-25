@@ -1,11 +1,13 @@
 package tasks
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/programmer8760/tasks-service-api/models"
 	"github.com/programmer8760/tasks-service-api/utils"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -15,7 +17,7 @@ type CreateTaskRequest struct {
 	Description string `json:"description"`
 }
 
-func CreateTask(db *gorm.DB) fiber.Handler {
+func CreateTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var request CreateTaskRequest
 
@@ -43,6 +45,8 @@ func CreateTask(db *gorm.DB) fiber.Handler {
 		}
 
 		db.Create(&task)
+
+		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
 
 		return c.JSON(fiber.Map{
 			"status": 200,

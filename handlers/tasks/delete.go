@@ -1,11 +1,13 @@
 package tasks
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/programmer8760/tasks-service-api/models"
 	"github.com/programmer8760/tasks-service-api/utils"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +15,7 @@ type DeleteTaskRequest struct {
 	Token string `json:"token"`
 }
 
-func DeleteTask(db *gorm.DB) fiber.Handler {
+func DeleteTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var request DeleteTaskRequest
 
@@ -45,6 +47,8 @@ func DeleteTask(db *gorm.DB) fiber.Handler {
 		if result.RowsAffected == 0 {
 			return fiber.ErrNotFound
 		}
+
+		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
 
 		return c.JSON(fiber.Map{
 			"status": 200,

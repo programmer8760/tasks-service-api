@@ -55,11 +55,11 @@ func main() {
 	app.Post("/register", auth.Register(database))
 	app.Post("/login", auth.Login(database))
 
-	app.Post("/tasks/create", tasks.CreateTask(database))
-	app.Get("/tasks", tasks.GetAllTasks(database))
+	app.Post("/tasks/create", tasks.CreateTask(database, rdb))
+	app.Get("/tasks", tasks.GetAllTasks(database, rdb))
 	app.Get("/tasks/:taskID", tasks.GetOneTask(database))
-	app.Put("/tasks/:taskID/update", tasks.UpdateTask(database))
-	app.Delete("/tasks/:taskID/delete", tasks.DeleteTask(database))
+	app.Put("/tasks/:taskID/update", tasks.UpdateTask(database, rdb))
+	app.Delete("/tasks/:taskID/delete", tasks.DeleteTask(database, rdb))
 
 	log.Fatal(app.Listen(":3000"))
 }

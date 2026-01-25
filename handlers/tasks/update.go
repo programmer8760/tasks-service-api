@@ -1,12 +1,14 @@
 package tasks
 
 import (
+	"fmt"
 	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/programmer8760/tasks-service-api/models"
 	"github.com/programmer8760/tasks-service-api/utils"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -17,7 +19,7 @@ type UpdateTaskRequest struct {
 	Status      models.Status `json:"status"`
 }
 
-func UpdateTask(db *gorm.DB) fiber.Handler {
+func UpdateTask(db *gorm.DB, rdb *redis.Client) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var request UpdateTaskRequest
 
@@ -70,6 +72,8 @@ func UpdateTask(db *gorm.DB) fiber.Handler {
 		task.UpdatedAt = time.Now()
 
 		db.Save(&task)
+
+		rdb.Del(c.Context(), fmt.Sprintf("tasks:user:%s", userID))
 
 		return c.JSON(fiber.Map{
 			"status": 200,
